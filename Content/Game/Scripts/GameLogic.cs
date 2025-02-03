@@ -18,6 +18,8 @@ public class GameLogic : MonoBehaviour
       return;
     }
     Directory.CreateDirectory(@$"Executable\Pixels_Data\Worlds\{worldNameHash}");
+    File.Create(@$"Executable\Pixels_Data\Worlds\{worldNameHash}\World.xml").Close();
+    File.Create(@$"Executable\Pixels_Data\Worlds\{worldNameHash}\Player.xml").Close();
   }
   
   public static void Save()

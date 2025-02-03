@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,14 +10,23 @@ public class GameCreationLogic : MonoBehaviour
 
   public void CreateGame()
   {
-    if (inputField.text == "")
+    bool validName = false;
+
+    foreach (char c in inputField.text.Where(c => c is not (' ' or '\t' or '\n' or '\r')))
     {
-      Debug.Log("World Name cannot be empty");
+      validName = true;
+      break;
+    }
+
+    if (!validName)
+    {
+      Debug.Log("Invalid name");
       return;
     }
     
     GameLogic.createMode = true;
     GameLogic.worldName = inputField.text;
+    WorldsMeta.AddWorldMeta(inputField.text);
     Debug.Log(GameLogic.worldName);
     SceneManager.OpenGameScene();
   }
